@@ -45,6 +45,12 @@ const createUser = (req, res) => {
 const login = (req, res) => {
   const { email, password } = req.body;
 
+  if (!email || !password) {
+    return res
+      .status(ERROR_BAD_REQUEST)
+      .send({ message: "Email and password are required" });
+  }
+
   User.findOne({ email })
     .select("+password")
     .then((user) => {

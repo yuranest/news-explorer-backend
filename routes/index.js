@@ -11,7 +11,7 @@ router.post("/signin", login); // Login
 
 // Protected routes
 router.use("/users", auth, userRoutes); // Requires JWT token
-router.use("/items", itemRoutes); // Add `auth` here if you want to protect it
+router.use("/items", auth, itemRoutes);
 
 // Catch-all for undefined routes
 router.use("*", (req, res) => {

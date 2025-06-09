@@ -38,14 +38,21 @@ const createItem = (req, res) => {
 };
 
 // DELETE /items/:itemId
-const deleteItem = (req, res) =>
-  ClothingItem.findByIdAndDelete(req.params.itemId)
+const deleteItem = (req, res) => {
+  ClothingItem.findById(req.params.itemId)
     .orFail(() => {
       const error = new Error("Item not found");
       error.statusCode = ERROR_NOT_FOUND;
       throw error;
     })
-    .then((item) => res.send(item))
+    .then((item) => {
+      if (item.owner.toString() !== req.user._id) {
+        return res
+          .status(ERROR_FORBIDDEN)
+          .send({ message: "You can only delete your own items" });
+      }
+      return item.deleteOne().then(() => res.send({ message: "Item deleted" }));
+    })
     .catch((err) => {
       console.error(err);
       if (err.name === "CastError") {
@@ -57,6 +64,7 @@ const deleteItem = (req, res) =>
         .status(err.statusCode || ERROR_SERVER)
         .send({ message: err.message });
     });
+};
 
 // PUT /items/:itemId/likes
 const likeItem = (req, res) =>
