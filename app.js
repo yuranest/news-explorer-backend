@@ -1,12 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const helmet = require("helmet");
+const cors = require("cors");
 const routes = require("./routes");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 app.use(helmet());
+app.use(cors());
 app.use(express.json());
 
 mongoose
@@ -17,13 +19,6 @@ mongoose
     }
   })
   .catch(console.error);
-
-app.use((req, res, next) => {
-  req.user = {
-    _id: "68389641b3c5817cd8c56b19",
-  };
-  next();
-});
 
 app.use(routes);
 

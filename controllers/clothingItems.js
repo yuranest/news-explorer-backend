@@ -1,4 +1,5 @@
 const ClothingItem = require("../models/clothingItem");
+const { ERROR_FORBIDDEN } = require("../utils/errors");
 const {
   ERROR_BAD_REQUEST,
   ERROR_NOT_FOUND,
@@ -6,7 +7,8 @@ const {
 } = require("../utils/errors");
 
 // GET /items
-const getItems = (req, res) => ClothingItem.find({})
+const getItems = (req, res) =>
+  ClothingItem.find({})
     .then((items) => res.send(items))
     .catch((err) => {
       console.error(err);
@@ -36,7 +38,8 @@ const createItem = (req, res) => {
 };
 
 // DELETE /items/:itemId
-const deleteItem = (req, res) => ClothingItem.findByIdAndDelete(req.params.itemId)
+const deleteItem = (req, res) =>
+  ClothingItem.findByIdAndDelete(req.params.itemId)
     .orFail(() => {
       const error = new Error("Item not found");
       error.statusCode = ERROR_NOT_FOUND;
@@ -56,7 +59,8 @@ const deleteItem = (req, res) => ClothingItem.findByIdAndDelete(req.params.itemI
     });
 
 // PUT /items/:itemId/likes
-const likeItem = (req, res) => ClothingItem.findByIdAndUpdate(
+const likeItem = (req, res) =>
+  ClothingItem.findByIdAndUpdate(
     req.params.itemId,
     { $addToSet: { likes: req.user._id } },
     { new: true }
@@ -80,7 +84,8 @@ const likeItem = (req, res) => ClothingItem.findByIdAndUpdate(
     });
 
 // DELETE /items/:itemId/likes
-const dislikeItem = (req, res) => ClothingItem.findByIdAndUpdate(
+const dislikeItem = (req, res) =>
+  ClothingItem.findByIdAndUpdate(
     req.params.itemId,
     { $pull: { likes: req.user._id } },
     { new: true }
