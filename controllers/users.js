@@ -15,13 +15,13 @@ const {
 const createUser = (req, res) => {
   const { name, avatar, email, password } = req.body;
 
-  bcrypt
+  return bcrypt
     .hash(password, 10)
     .then((hash) => User.create({ name, avatar, email, password: hash }))
     .then((user) => {
       const userCopy = user.toObject();
       delete userCopy.password;
-      res.status(201).send(userCopy);
+      return res.status(201).send(userCopy);
     })
     .catch((err) => {
       console.error(err);
@@ -35,7 +35,7 @@ const createUser = (req, res) => {
           .status(ERROR_CONFLICT)
           .send({ message: "Email already registered" });
       }
-      res
+      return res
         .status(ERROR_SERVER)
         .send({ message: "An error occurred on the server" });
     });
@@ -51,7 +51,7 @@ const login = (req, res) => {
       .send({ message: "Email and password are required" });
   }
 
-  User.findOne({ email })
+  return User.findOne({ email })
     .select("+password")
     .then((user) => {
       if (!user) {
@@ -71,39 +71,37 @@ const login = (req, res) => {
           expiresIn: "7d",
         });
 
-        res.send({ token });
+        return res.send({ token });
       });
     })
     .catch((err) => {
       console.error(err);
-      res
+      return res
         .status(ERROR_SERVER)
         .send({ message: "An error occurred on the server" });
     });
 };
 
 // GET /users/me — get current user
-const getCurrentUser = (req, res) => {
-  User.findById(req.user._id)
+const getCurrentUser = (req, res) => User.findById(req.user._id)
     .then((user) => {
       if (!user) {
         return res.status(ERROR_NOT_FOUND).send({ message: "User not found" });
       }
-      res.send(user);
+      return res.send(user);
     })
     .catch((err) => {
       console.error(err);
-      res
+      return res
         .status(ERROR_SERVER)
         .send({ message: "An error occurred on the server" });
     });
-};
 
 // PATCH /users/me — update profile
 const updateUser = (req, res) => {
   const { name, avatar } = req.body;
 
-  User.findByIdAndUpdate(
+  return User.findByIdAndUpdate(
     req.user._id,
     { name, avatar },
     { new: true, runValidators: true }
@@ -112,7 +110,7 @@ const updateUser = (req, res) => {
       if (!user) {
         return res.status(ERROR_NOT_FOUND).send({ message: "User not found" });
       }
-      res.send(user);
+      return res.send(user);
     })
     .catch((err) => {
       console.error(err);
@@ -121,7 +119,7 @@ const updateUser = (req, res) => {
           .status(ERROR_BAD_REQUEST)
           .send({ message: "Invalid user data" });
       }
-      res
+      return res
         .status(ERROR_SERVER)
         .send({ message: "An error occurred on the server" });
     });
