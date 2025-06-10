@@ -8,7 +8,7 @@ const {
   dislikeItem,
 } = require("../controllers/clothingItems");
 
-// Public
+// Public route
 router.get("/", getItems);
 
 // Protected routes
