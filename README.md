@@ -1,42 +1,62 @@
 # 🧥 WTWR API – Backend Server
 
-This is the backend server for the **WTWR (What To Wear?)** application, built as part of TripleTen Sprint 12. The app allows users to store and interact with clothing items based on weather conditions. This backend provides a RESTful API with MongoDB, Express, and Node.js.
+This is the backend server for the **WTWR (What To Wear?)** application, built during TripleTen **Sprint 12–13**. It supports user registration and authentication, weather-based clothing item management, and a secure REST API built with Express and MongoDB.
 
 ---
 
 ## 🚀 Features
 
-- REST API with Express.js
-- MongoDB database connection via Mongoose
-- Full CRUD operations for users and clothing items
-- Server-side data validation
-- Custom error handling
-- Temporary authorization stub
-- GitHub Actions for CI/CD
-- Postman test support
+- 🔐 Authentication using JSON Web Tokens (JWT)
+- 👤 Full CRUD for users and clothing items
+- 🧪 Server-side validation with Mongoose
+- ⚠️ Centralized error handling with custom messages
+- 🔄 CORS support and secure request headers
+- 🧰 Environment variable support for configuration
+- ✅ Ready-to-run Postman collection + environment
+- 🛠 GitHub Actions CI with lint and test runs
 
 ---
 
 ## 📁 Project Structure
 
-├── controllers # Route handler logic (users, clothingItems)
-├── models # Mongoose schemas for User and ClothingItem
-├── routes # Express routers (users, clothingItems, index)
-├── utils # Error codes and custom error messages
-├── app.js # Entry point
-├── .eslintrc.js # Linter config (Airbnb style)
-└── package.json # Dependencies and scripts
+```
+├── controllers         # Route handler logic (users, clothingItems)
+├── models              # Mongoose schemas: User, ClothingItem
+├── routes              # Express route definitions
+├── middlewares         # Error handlers, auth checks, validators
+├── utils               # Centralized errors and constants
+├── .env                # Env vars (e.g., DB URL, JWT_SECRET)
+├── .eslintrc.js        # Linter config (Airbnb style)
+├── app.js              # Main Express app
+└── package.json        # Scripts and dependencies
+```
 
 ---
 
-## 🛠️ Technologies
+## 🛠️ Tech Stack
 
-- Node.js
-- Express.js
-- MongoDB / Mongoose
+- Node.js + Express.js
+- MongoDB + Mongoose
+- JSON Web Tokens (JWT)
 - ESLint + Prettier
-- Postman (for test suite)
-- GitHub Actions (CI pipeline)
+- GitHub Actions
+- Postman
+
+---
+
+## 🧪 Testing Instructions
+
+### 🔁 Using Postman
+
+1. Import the Postman Collection:
+   - `Sprint_13_Tests_Fixed.postman_collection.json`
+
+2. Import the Environment:
+   - `Sprint_13_Environment.postman_environment.json`
+
+3. Click **"Run"** to execute tests against your local server.
+
+> 🔑 Make sure the environment is active and variables like `{{token}}` and `{{itemId}}` are set correctly from the `Pre-request Script` and tests.
 
 ---
 
@@ -46,45 +66,74 @@ This is the backend server for the **WTWR (What To Wear?)** application, built a
 git clone https://github.com/yuranest/se_project_express.git
 cd se_project_express
 npm install
-# Start server with nodemon
+```
+
+### 🔧 Environment Setup
+
+Create a `.env` file with:
+
+```
+PORT=3001
+MONGO_URI=mongodb://127.0.0.1:27017/wtwr_db
+JWT_SECRET=your_secret_key
+```
+
+### ▶️ Start the Server
+
+```bash
+# Development mode with hot reload
 npm run dev
 
-# OR start normally
+# Production
 npm start
-Server will run at:
-http://localhost:3001
-
-🧪 Testing
-Postman: Fork and run the official test collection
-
-GitHub Actions: Automatically runs linter and server startup checks on push
-
-📋 API Endpoints
-Users
-Method	Endpoint	Description
-GET	/users	Get all users
-GET	/users/:userId	Get one user
-POST	/users	Create new user
-
-Clothing Items
-Method	Endpoint	Description
-GET	/items	Get all items
-POST	/items	Add an item
-DELETE	/items/:itemId	Delete an item
-PUT	/items/:itemId/likes	Like an item
-DELETE	/items/:itemId/likes	Remove like from an item
-
-👨‍💻 Author
-Yuriy Nesterenko
-GitHub Profile
-
-✅ Status
-✔️ Completed and tested using Postman
-✔️ Ready for submission to TripleTen Sprint 12
-
-vbnet
-Copy
-Edit
-
-Let me know if you'd like to include deployment instructions or screenshots as well!
 ```
+
+Server will run at: `http://localhost:3001`
+
+---
+
+## 📋 API Endpoints
+
+### Users
+
+| Method | Endpoint          | Description               |
+|--------|-------------------|---------------------------|
+| GET    | /users            | Get all users             |
+| GET    | /users/:userId    | Get a user by ID          |
+| GET    | /users/me         | Get current user          |
+| PATCH  | /users/me         | Update profile            |
+| PATCH  | /users/me/avatar  | Update avatar             |
+| POST   | /signup           | Register a new user       |
+| POST   | /signin           | Login and receive token   |
+
+### Clothing Items
+
+| Method | Endpoint                  | Description               |
+|--------|---------------------------|---------------------------|
+| GET    | /items                    | Get all items             |
+| POST   | /items                    | Add a new item            |
+| DELETE | /items/:itemId            | Delete item by ID         |
+| PUT    | /items/:itemId/likes      | Like an item              |
+| DELETE | /items/:itemId/likes      | Remove like               |
+
+---
+
+## 🧑‍💻 Author
+
+**Yuriy Nesterenko**  
+🔗 [GitHub Profile](https://github.com/yuranest)
+
+---
+
+## ✅ Project Status
+
+✔️ Authentication and validation implemented  
+✔️ Postman test suite passing  
+✔️ Ready for submission (Sprint 13)
+
+---
+
+Let me know if you'd like to add:
+- 🖼️ Screenshots of Postman tests
+- 🌍 Deployment instructions for Render/Heroku
+- 🔐 Password hashing explanation
