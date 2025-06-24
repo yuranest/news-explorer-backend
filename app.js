@@ -2,7 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const helmet = require("helmet");
 const cors = require("cors");
+const { errors } = require("celebrate");
 const routes = require("./routes");
+const errorHandler = require("./middlewares/error-handler");
+const { requestLogger, errorLogger } = require("./middlewares/logger");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -10,6 +13,13 @@ const PORT = process.env.PORT || 3001;
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+
+app.use(requestLogger); // loger request
+app.use(routes); // routes
+
+app.use(errorLogger); // error log
+app.use(errors()); // celebrate error handler
+app.use(errorHandler); // centralized error handler
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/wtwr_db")
@@ -19,8 +29,6 @@ mongoose
     }
   })
   .catch(console.error);
-
-app.use(routes);
 
 app.listen(PORT, () => {
   if (process.env.NODE_ENV !== "production") {
