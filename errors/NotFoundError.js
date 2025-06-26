@@ -1,8 +1,8 @@
-class BadRequestError extends Error {
+class NotFoundError extends Error {
   constructor(message) {
     super(message);
-    this.statusCode = 403;
+    this.statusCode = 404;
   }
 }
 
-module.exports = BadRequestError;
+module.exports = NotFoundError;

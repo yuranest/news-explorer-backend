@@ -1,8 +1,8 @@
-class BadRequestError extends Error {
+class UnauthorizedError extends Error {
   constructor(message) {
     super(message);
-    this.statusCode = 409;
+    this.statusCode = 401;
   }
 }
 
-module.exports = BadRequestError;
+module.exports = UnauthorizedError;
