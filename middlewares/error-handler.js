@@ -1,5 +1,3 @@
-// middlewares/error-handler.js
-
 const { isCelebrateError } = require("celebrate");
 
 const errorHandler = (err, req, res, next) => {
