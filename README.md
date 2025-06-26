@@ -137,3 +137,11 @@ Let me know if you'd like to add:
 - 🖼️ Screenshots of Postman tests
 - 🌍 Deployment instructions for Render/Heroku
 - 🔐 Password hashing explanation
+
+
+---
+
+## 🌐 Deployed Application
+
+- Frontend: https://www.wtwrapp.ugo.si  
+- Backend: https://api.wtwrapp.ugo.si

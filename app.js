@@ -10,6 +10,11 @@ require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+app.get("/crash-test", () => {
+  setTimeout(() => {
+    throw new Error("Server will crash now");
+  }, 0);
+});
 
 app.use(helmet());
 app.use(cors());
