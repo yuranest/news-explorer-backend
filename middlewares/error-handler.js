@@ -1,6 +1,6 @@
 const { isCelebrateError } = require("celebrate");
 
-const errorHandler = (err, req, res, next) => {
+function errorHandler(err, req, res, next) {
   if (isCelebrateError(err)) {
     const details = Array.from(err.details.values())
       .map((d) => d.message)
@@ -10,9 +10,9 @@ const errorHandler = (err, req, res, next) => {
 
   const { statusCode = 500, message } = err;
 
-  res.status(statusCode).send({
+  return res.status(statusCode).send({
     message: statusCode === 500 ? "Internal Server Error" : message,
   });
-};
+}
 
 module.exports = errorHandler;
