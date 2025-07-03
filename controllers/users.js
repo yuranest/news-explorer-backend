@@ -11,11 +11,11 @@ const NotFoundError = require("../errors/NotFoundError");
 
 // POST /signup — create a new user
 const createUser = (req, res, next) => {
-  const { name, avatar, email, password } = req.body;
+  const { name, email, password } = req.body;
 
   return bcrypt
     .hash(password, 10)
-    .then((hash) => User.create({ name, avatar, email, password: hash }))
+    .then((hash) => User.create({ name, email, password: hash }))
     .then((user) => {
       const userCopy = user.toObject();
       delete userCopy.password;
@@ -75,11 +75,11 @@ const getCurrentUser = (req, res, next) =>
 
 // PATCH /users/me — update profile
 const updateUser = (req, res, next) => {
-  const { name, avatar } = req.body;
+  const { name } = req.body;
 
   return User.findByIdAndUpdate(
     req.user._id,
-    { name, avatar },
+    { name },
     { new: true, runValidators: true }
   )
     .then((user) => {

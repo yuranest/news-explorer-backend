@@ -30,8 +30,9 @@ app.use(errorLogger); // error log
 app.use(errors()); // celebrate error handler
 app.use(errorHandler); // centralized error handler
 
+mongoose;
 mongoose
-  .connect("mongodb://127.0.0.1:27017/wtwr_db")
+  .connect(process.env.MONGO_URL || "mongodb://127.0.0.1:27017/news_db")
   .then(() => {
     if (process.env.NODE_ENV !== "production") {
       console.log("Connected to DB");
