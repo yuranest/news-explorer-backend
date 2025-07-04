@@ -1,14 +1,14 @@
 {
   "name": "news-explorer-backend",
   "version": "1.0.0",
-  "description": "The back-end project is focused on creating a server for the WTWR application. You’ll gain a deeper understanding of how to work with databases, set up security and testing, and deploy web applications on a remote machine. The eventual goal is to create a server with an API and user authorization.\r ## Running the Project\r `npm run start` — to launch the server",
-  "homepage": "https://github.com/yuranest/se_project_express#readme",
+  "description": "The back-end project for the News Explorer app. Includes API routes, JWT-based auth, and MongoDB integration. \r\n## Running the Project\r\n`npm run start` — launches the server",
+  "homepage": "https://github.com/yuranest/news-explorer-backend#readme",
   "bugs": {
-    "url": "https://github.com/yuranest/se_project_express/issues"
+    "url": "https://github.com/yuranest/news-explorer-backend/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yuranest/se_project_express.git"
+    "url": "git+https://github.com/yuranest/news-explorer-backend.git"
   },
   "license": "ISC",
   "author": "Yuriy Nesterenko",
