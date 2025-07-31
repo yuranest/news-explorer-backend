@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
-const { JWT_SECRET } = require("../utils/config");
+const { JWT_SECRET = "dev-secret" } = process.env;
 
 // errors
 const BadRequestError = require("../errors/BadRequestError");
