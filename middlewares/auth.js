@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
     const token = authorization.replace("Bearer ", "");
     console.log("Authorization:", authorization);
 
-    req.user = jwt.verify(token, JWT_SECRET);
+    req.user = jwt.verify(token, process.env.JWT_SECRET);
     console.log("Decoded user:", req.user);
 
     return next();

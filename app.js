@@ -10,27 +10,8 @@ const { requestLogger, errorLogger } = require("./middlewares/logger");
 const rateLimiter = require("./middlewares/rateLimiter");
 
 const app = express();
-const PORT = process.env.PORT || 3001;
-app.get("/crash-test", () => {
-  setTimeout(() => {
-    throw new Error("Server will crash now");
-  }, 0);
-});
 
-app.use(helmet());
-app.use(cors());
-app.use(express.json());
-
-app.use(rateLimiter);
-
-app.use(requestLogger); // loger request
-app.use(routes); // routes
-
-app.use(errorLogger); // error log
-app.use(errors()); // celebrate error handler
-app.use(errorHandler); // centralized error handler
-
-mongoose;
+// Connect to DB
 mongoose
   .connect(process.env.MONGO_URL || "mongodb://127.0.0.1:27017/news_db")
   .then(() => {
@@ -40,8 +21,29 @@ mongoose
   })
   .catch(console.error);
 
+// Middleware
+app.use(helmet());
+app.use(cors());
+app.use(express.json());
+
+app.use(rateLimiter);
+app.use(requestLogger);
+app.use(routes);
+app.use(errorLogger);
+app.use(errors());
+app.use(errorHandler);
+
+// Crash test route
+app.get("/crash-test", () => {
+  setTimeout(() => {
+    throw new Error("Server will crash now");
+  }, 0);
+});
+
+module.exports = app;
+
+const PORT = process.env.PORT || 3001;
+
 app.listen(PORT, () => {
-  if (process.env.NODE_ENV !== "production") {
-    console.log(`Server is running on port ${PORT}`);
-  }
+  console.log(`✅ Server is running on port ${PORT}`);
 });
