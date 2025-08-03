@@ -35,9 +35,10 @@ npm install
 3. Create a `.env` file in the root directory:
 
 ```env
-PORT=3001
-MONGO_URL=mongodb://127.0.0.1:27017/news_db
+PORT=3000
+MONGO_URL=mongodb://localhost:27017/news_db
 JWT_SECRET=your-strong-secret
+NODE_ENV=production
 ```
 
 > 🔐 **Do not commit `.env` to Git.**
@@ -59,50 +60,52 @@ npm run test      # Run Jest tests
 
 ### Authentication
 
-| Method | Endpoint     | Description             |
-|--------|--------------|-------------------------|
-| POST   | `/signup`    | Register new user       |
-| POST   | `/signin`    | Log in (returns JWT)    |
+| Method | Endpoint  | Description          |
+| ------ | --------- | -------------------- |
+| POST   | `/signup` | Register new user    |
+| POST   | `/signin` | Log in (returns JWT) |
 
 ### Users
 
-| Method | Endpoint     | Description             |
-|--------|--------------|-------------------------|
-| GET    | `/users/me`  | Get current user info   |
+| Method | Endpoint    | Description           |
+| ------ | ----------- | --------------------- |
+| GET    | `/users/me` | Get current user info |
 
 ### Articles
 
-| Method | Endpoint            | Description                     |
-|--------|---------------------|---------------------------------|
-| GET    | `/articles`         | Get saved articles (auth only) |
-| POST   | `/articles`         | Save a new article              |
-| DELETE | `/articles/:id`     | Delete article by ID            |
-
----
-
-## 🛡️ Technologies Used
-
-- Node.js + Express.js
-- MongoDB + Mongoose
-- JWT (jsonwebtoken)
-- bcrypt
-- celebrate (Joi)
-- helmet, cors
-- winston, express-winston
-- express-rate-limit
+| Method | Endpoint        | Description                    |
+| ------ | --------------- | ------------------------------ |
+| GET    | `/articles`     | Get saved articles (auth only) |
+| POST   | `/articles`     | Save a new article             |
+| DELETE | `/articles/:id` | Delete article by ID           |
 
 ---
 
 ## 🌐 Deployment
 
-To deploy in production:
-
 - Set `NODE_ENV=production`
 - Configure your `.env` file with production values (Mongo URI, JWT_SECRET)
-- Serve on a domain like:  
-  ```
-  https://api.news.yourdomain.com
-  ```
+
+### 📡 Deployment Status
+
+| Environment | URL                              |
+| ----------- | -------------------------------- |
+| API         | https://api.news.ugo.si/news-api |
+| Frontend    | https://news.ugo.si              |
+
+---
+
+## ✅ TripleTen Compatibility
+
+This backend is built in full compliance with the Stage 2 and Stage 3 criteria of the TripleTen News Explorer Final Project, including:
+
+- Strict RESTful API design
+- Full authentication with JWT
+- Rate limiting, Helmet headers
+- Validation using Celebrate
+- Centralized error handling
+- Logging of requests and errors
+- Secure production deployment structure
 
 ---
 
